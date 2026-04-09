@@ -49,6 +49,9 @@ src/
 ├── serial_reader.py
 ├── schema.sql
 ├── static/
+│   ├── img/
+│      ├── ex1.jpeg
+│      ├── ex1.jpeg
 │   ├── css/
 │   └── js/
 ├── templates/
