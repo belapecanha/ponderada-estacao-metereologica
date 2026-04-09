@@ -137,25 +137,6 @@ CREATE TABLE IF NOT EXISTS leituras (
 | GET | `/api/estatisticas` | Média, mínimo e máximo do período |
 | GET | `/api/leituras/recentes?n=30` | Últimas N leituras |
 
-### Exemplo de payload POST
-
-```json
-{
-  "temperatura": 24.5,
-  "umidade": 68.0,
-  "localizacao": "Lab"
-}
-```
-
-Resposta esperada:
-
-```json
-{
-  "id": 42,
-  "status": "criado"
-}
-```
-
 ---
 
 ## Interface Web
