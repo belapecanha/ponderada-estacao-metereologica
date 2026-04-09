@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Histórico — Estação Meteorológica{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Histórico</h1>
+    <p class="page-sub">Todas as leituras registradas</p>
+  </div>
+  <a href="{{ url_for('listar') }}?formato=json" class="btn btn-ghost" target="_blank">
+    { } JSON
+  </a>
+</div>
+
+{% if leituras %}
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Temperatura</th>
+        <th>Umidade</th>
+        <th>Pressão</th>
+        <th>Local</th>
+        <th>Timestamp</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in leituras %}
+      <tr id="row-{{ l['id'] }}">
+        <td class="mono">{{ l['id'] }}</td>
+        <td class="val-temp">{{ l['temperatura'] }}°C</td>
+        <td class="val-umid">{{ l['umidade'] }}%</td>
+        <td>{{ l['pressao'] if l['pressao'] else '—' }}</td>
+        <td>{{ l['localizacao'] }}</td>
+        <td class="mono timestamp">{{ l['timestamp'] }}</td>
+        <td class="acoes">
+          <a href="{{ url_for('editar_form', id=l['id']) }}" class="btn-action btn-edit">Editar</a>
+          <form method="POST" action="{{ url_for('deletar_form', id=l['id']) }}"
+                onsubmit="return confirm('Deletar leitura #{{ l['id'] }}?')" style="display:inline">
+            <button type="submit" class="btn-action btn-del">Deletar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% else %}
+<p class="empty-msg">Nenhuma leitura no banco ainda.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel — Estação Meteorológica{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Painel</h1>
+    <p class="page-sub">Últimas 10 leituras recebidas</p>
+  </div>
+  <button class="btn btn-ghost" id="btn-atualizar" onclick="location.reload()">
+    ↺ Atualizar
+  </button>
+</div>
+
+<!-- Cards de resumo -->
+<div class="stats-grid" id="stats-grid">
+  <div class="stat-card" id="stat-temp">
+    <span class="stat-label">Temperatura</span>
+    <span class="stat-value" id="val-temp">—</span>
+    <span class="stat-unit">°C</span>
+  </div>
+  <div class="stat-card" id="stat-umid">
+    <span class="stat-label">Umidade</span>
+    <span class="stat-value" id="val-umid">—</span>
+    <span class="stat-unit">%</span>
+  </div>
+  <div class="stat-card" id="stat-total">
+    <span class="stat-label">Total de Leituras</span>
+    <span class="stat-value" id="val-total">—</span>
+    <span class="stat-unit">registros</span>
+  </div>
+</div>
+
+<!-- Gráfico -->
+<section class="section">
+  <h2 class="section-title">Variação Temporal</h2>
+  <div class="chart-wrapper">
+    <canvas id="grafico"></canvas>
+  </div>
+</section>
+
+<!-- Tabela de últimas leituras -->
+<section class="section">
+  <h2 class="section-title">Leituras Recentes</h2>
+  {% if leituras %}
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Temperatura</th>
+          <th>Umidade</th>
+          <th>Pressão</th>
+          <th>Local</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in leituras %}
+        <tr>
+          <td class="mono">{{ l['id'] }}</td>
+          <td class="val-temp">{{ l['temperatura'] }}°C</td>
+          <td class="val-umid">{{ l['umidade'] }}%</td>
+          <td>{{ l['pressao'] if l['pressao'] else '—' }}</td>
+          <td>{{ l['localizacao'] }}</td>
+          <td class="mono timestamp">{{ l['timestamp'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="empty-msg">Nenhuma leitura no banco ainda. Ligue o Arduino e o serial_reader.py.</p>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Leitura #{{ leitura['id'] }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Leitura #{{ leitura['id'] }}</h1>
+    <p class="page-sub">{{ leitura['timestamp'] }}</p>
+  </div>
+  <a href="{{ url_for('listar') }}" class="btn btn-ghost">← Voltar</a>
+</div>
+
+<div class="form-card">
+  <div class="detail-row">
+    <span class="detail-label">Temperatura</span>
+    <span class="detail-value val-temp">{{ leitura['temperatura'] }}°C</span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Umidade</span>
+    <span class="detail-value val-umid">{{ leitura['umidade'] }}%</span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Pressão</span>
+    <span class="detail-value">{{ leitura['pressao'] if leitura['pressao'] else '—' }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="detail-label">Localização</span>
+    <span class="detail-value">{{ leitura['localizacao'] }}</span>
+  </div>
+  <div class="form-actions">
+    <a href="{{ url_for('editar_form', id=leitura['id']) }}" class="btn btn-primary">Editar</a>
+  </div>
+</div>
+{% endblock %}
