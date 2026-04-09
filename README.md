@@ -73,7 +73,7 @@ src/
 ### 1. Clonar o repositório
 
 ```bash
-git clone <//>
+git clone <https://github.com/belapecanha/ponderada-estacao-metereologica.git>
 cd src
 ```
 
